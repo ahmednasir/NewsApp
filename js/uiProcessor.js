@@ -2,10 +2,12 @@ const uiProcessor = {
     containerList: $(".blog-list"),
     sourceList: $(".source-list"),
     topNewsList: $(".top-news"),
+    sourcesTitle: document.getElementById("source-title"),
+
     DEFAULT_IMAGE_URL: "https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg",
 
     formatDateTime: (date) => {
-        return new Date(date).toString()
+        return moment(date).format('MMMM Do y, h:mm a');
     },
 
     /**
@@ -26,7 +28,7 @@ const uiProcessor = {
 
             <div class="blog-meta big-meta col-md-8">
                 <h4><a href="details.html?id=${article.id}" title="">${article.title}</a></h4>
-                <p>Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                <p>${article.description}</p>
                 
                 <small><a href="details.html?id=${article.id}" title="">${uiProcessor.formatDateTime(article.publishedAt)}</a></small>
                 <small><a href="tech-author.html" title="">${article.source}</a></small>
@@ -61,6 +63,7 @@ const uiProcessor = {
             let sourceItem = uiProcessor.buildNewsSourceListItem(source)
             uiProcessor.sourceList.append(sourceItem)
         });
+        uiProcessor.sourcesTitle.textContent = "Sources"
     },
 
 

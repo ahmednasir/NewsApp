@@ -7,11 +7,13 @@ const mainController = {
     newsList: [],
     newsSources: [],
     topNewsList: [],
+    sources : {},
 
     isSourceClicked:false,
     prevClickedSource:"",
 
     loader: $(".bottom-loader"),
+
 
     // function to filter news by source
     onSourceClicked:(event)=>{
@@ -62,11 +64,11 @@ const mainController = {
 
     // process all the news articles and make different types of list
     processInfo: (articles, isLazy) => {
-        let sources = {}
+        
 
         let index = 0;
         for (let article of articles) {
-            sources[article.source.name] = article.source.name;
+            mainController.sources[article.source.name] = article.source.name;
             article.source = article.source.name;
             article.id = new Date().getTime().toString()+ index.toString()
             index++;
@@ -80,9 +82,9 @@ const mainController = {
             mainController.topNewsList = articles.slice(Math.max(articles.length - 4, 0))
         }
 
-        mainController.newsSources = Object.keys(sources);
+        mainController.newsSources = Object.keys(mainController.sources);
 
-        uiProcessor.buildTopNewsList(mainController.topNewsList)
+        if(!isLazy)uiProcessor.buildTopNewsList(mainController.topNewsList)
         uiProcessor.buildNewsListLayout(mainController.newsList, false)
         uiProcessor.buildNewsSourceList(mainController.newsSources)
 
