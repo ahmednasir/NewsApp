@@ -86,7 +86,7 @@ const mainController = {
 
         if(!isLazy)uiProcessor.buildTopNewsList(mainController.topNewsList)
         uiProcessor.buildNewsListLayout(mainController.newsList, false)
-        uiProcessor.buildNewsSourceList(mainController.newsSources)
+        uiProcessor.buildNewsSourceList(mainController.newsSources, isLazy)
 
         window.sessionStorage.setItem("newsSources", JSON.stringify(mainController.newsSources))
         window.sessionStorage.setItem("newsList", JSON.stringify(mainController.newsList))

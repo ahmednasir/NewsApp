@@ -58,7 +58,10 @@ const uiProcessor = {
     },
 
 
-    buildNewsSourceList: (newsSources) => {
+    buildNewsSourceList: (newsSources, doEmpty) => {
+        if (doEmpty) {
+            uiProcessor.sourceList.empty()
+        }
         newsSources.forEach(source => {
             let sourceItem = uiProcessor.buildNewsSourceListItem(source)
             uiProcessor.sourceList.append(sourceItem)
