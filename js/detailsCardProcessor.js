@@ -6,6 +6,8 @@ const detailsCard = {
     articleDescription: document.getElementById("article-description"),
     articleContent: document.getElementById("article-content"),
 
+
+    // show the article details
     applyPlaceholder: (article) => {
         detailsCard.title.textContent = article.title
         detailsCard.time.textContent = uiProcessor.formatDateTime(article.publishedAt)

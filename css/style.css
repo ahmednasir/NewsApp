@@ -1583,3 +1583,10 @@ hr.invis3 {
     position: absolute;
     right: 0;
 }
+.bottom-loader{
+    margin-left: 45%;
+}
+.bottom-loader img{
+    width:4rem;
+}
+
