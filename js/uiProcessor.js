@@ -2,6 +2,7 @@ const uiProcessor = {
     containerList: $(".blog-list"),
     sourceList: $(".source-list"),
     topNewsList: $(".top-news"),
+    DEFAULT_IMAGE_URL: "https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg",
 
     formatDateTime: (date) => {
         return new Date(date).toString()
@@ -17,7 +18,7 @@ const uiProcessor = {
         <div class="col-md-4">
                 <div class="post-media">
                     <a href="details.html?id=${article.id}" title="">
-                        <img src="${article.urlToImage}" alt="" class="img-fluid">
+                        <img src="${article.urlToImage ? article.urlToImage : uiProcessor.DEFAULT_IMAGE_URL}" alt="" class="img-fluid">
                         <div class="hovereffect"></div>
                     </a>
                 </div>
@@ -33,8 +34,10 @@ const uiProcessor = {
         </div> `
     },
 
-    buildNewsListLayout: (newsList) => {
-
+    buildNewsListLayout: (newsList, doEmpty) => {
+        if (doEmpty) {
+            uiProcessor.containerList.empty()
+        }
         newsList.forEach(news => {
             let card = uiProcessor.buildNewsCard(news)
             uiProcessor.containerList.append(card)
@@ -48,7 +51,7 @@ const uiProcessor = {
 
     buildNewsSourceListItem: (source) => {
         return `<div class="w-100 justify-content-between source-item">                                
-                    <h5 class="mb-1">${source}</h5>
+                    <h5 class="mb-1" id="${source}">${source}</h5>
               </div>`
     },
 
@@ -61,6 +64,10 @@ const uiProcessor = {
     },
 
 
+    /**
+     * build UI for top news headlines
+     * 
+     */
     buildTopNewsCard: (article) => {
         return `<div class="second-slot">
                         <div class="masonry-box post-media">

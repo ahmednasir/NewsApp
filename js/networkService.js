@@ -8,6 +8,20 @@ const networkService = {
     newsSources: [],
     topNewsList: [],
 
+    prevClickedSource:"",
+
+    onSourceClicked:(event)=>{
+        let id = event.target.id
+        if(id == "source-list") return
+
+        let filteredArray =networkService.newsList.filter(news => news.source.toLowerCase() == id.toLowerCase())
+        uiProcessor.buildNewsListLayout(filteredArray, true)
+        if(networkService.prevClickedSource){
+            document.getElementById(networkService.prevClickedSource).style.fontWeight = 'normal';    
+        }
+        document.getElementById(id).style.fontWeight = 'bold';
+        networkService.prevClickedSource = id;
+    },
 
 
     ajaxGet: (url) => {
@@ -58,7 +72,7 @@ const networkService = {
         networkService.newsSources = Object.keys(sources);
 
         uiProcessor.buildTopNewsList(networkService.topNewsList)
-        uiProcessor.buildNewsListLayout(networkService.newsList)
+        uiProcessor.buildNewsListLayout(networkService.newsList, false)
         uiProcessor.buildNewsSourceList(networkService.newsSources)
 
         window.sessionStorage.setItem("newsSources", JSON.stringify(networkService.newsSources))
@@ -67,8 +81,10 @@ const networkService = {
     },
 
 
+
     initApp: () => {
         networkService.getNews(false)
+        $(".source-list").click(networkService.onSourceClicked)
     }
 
 }
